@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 
-import argparse
 
+# IMPORTS
+import argparse
+from Bio import PDB
+
+
+# COMMAND LINE ARGUMENTS
 parser = argparse.ArgumentParser(description="This program does blablablabla")
 
 requiredNamed = parser.add_argument_group("Required arguments")
@@ -33,3 +38,15 @@ options = parser.parse_args()
 
 
 print(options.infile)
+
+
+# INPUT
+
+
+# ALPHAFOLD
+
+# HOMOLOGY
+
+# DISTANCES
+
+
