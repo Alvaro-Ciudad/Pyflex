@@ -3,7 +3,18 @@
 
 # IMPORTS
 import argparse
+import subprocess
+from getopt import getopt
 from Bio import PDB
+from prody import *
+from matplotlib.pylab import *
+
+# imports from psiblast.py REST API
+import psiblast as pb
+
+
+
+
 
 
 # COMMAND LINE ARGUMENTS
@@ -41,12 +52,37 @@ print(options.infile)
 
 
 # INPUT
+def get_input_prot():
+    """This function returns the input protein depending on the introduced way to the program."""
 
 
-# ALPHAFOLD
+    protein = "VAYIGSYLRNDRLWICMEFCGGGSLQEIYHATGPLEERQ"
+    return protein
+
+# PSI-BLAST
+def get_psiblast_prot():
+    """This function returns the result of the psi-blast REST API"""
+    # command line
+    cmd_l = "python psiblast.py --email pyflex@protonmail.com --sequence MALLRDVSLQDPRDRFELLQRVGAGTYGDVYKARDTVTSELAAVKIVKLDPGDDISSLQQEITILRECRHPNVVAYIGSYLRNDRLWICMEFCGGGSLQEIYHATGPLEERQIAYVCREALKGLHHLHSQGKIHRDIKGANLLLTLQGDVKLADFGVSGELTASVAKRRSFIGTPYWALMLMSKSSFQPPKLRDKTRWTQNFHHFLKLALTKNPKKRPTAEKLLQHPFTTQQLPRALLTQLLDKASDPHLGTPSPEDCELETYDMFPDTIHSRGQHGPAERTPSEIQFHQVKFGAPRRKETDPLNEP --database uniprotkb"
+    p = subprocess.Popen(cmd_l, stdout=subprocess.PIPE)
+    for line in p.e:
+        print(line)
+    p.wait()
+    print(p.returncode)
+
+
+    
+
+#seq = get_input_prot()
+psi_blast_result = get_psiblast_prot()
+
+
+
+# DB ALPHAFOLD
 
 # HOMOLOGY
 
 # DISTANCES
+
 
 
