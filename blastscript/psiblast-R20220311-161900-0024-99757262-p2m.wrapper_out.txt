@@ -1,0 +1,5 @@
+/nfs/public/ro/es/appbin/linux-x86_64/ncbi-blast-2.9.0+/bin/psiblast -query psiblast-R20220311-161900-0024-99757262-p2m.sequence -matrix BLOSUM62 -num_alignments 500 -num_descriptions 500 -gapopen 11 -gapextend 1 -outfmt 11 -xdrop_gap 15 -xdrop_gap_final 25 -word_size 3 -comp_based_stats 0 -num_threads 4  -seg no -evalue 10.0 -db uniprotkb
+Output file psiblast-R20220311-161900-0024-99757262-p2m.result is generated successfully.
+Selected IDs file for next iteration psiblast-R20220311-161900-0024-99757262-p2m.result.preselids is generated successfully.
+/nfs/public/ro/es/appbin/linux-x86_64/ncbi-blast-2.9.0+/bin/blastdbcmd -db uniprotkb -entry_batch psiblast-R20220311-161900-0024-99757262-p2m.result.preselids > psiblast-R20220311-161900-0024-99757262-p2m.result.preselseq.fasta
+Selected sequences file for next iteration psiblast-R20220311-161900-0024-99757262-p2m.result.preselseq.fasta is generated successfully.
