@@ -9,12 +9,7 @@ from Bio import PDB
 from prody import *
 from matplotlib.pylab import *
 
-# imports from psiblast.py REST API
-import psiblast as pb
-
-
-
-
+from putupsiblast import get_psiblast_prot
 
 
 # COMMAND LINE ARGUMENTS
@@ -45,36 +40,31 @@ parser.add_argument('-g', '--graph',
                     default = None,
                     help = "Graphical result")            
 
-options = parser.parse_args()
-
+(options, args) = parser.parse_args()
 
 print(options.infile)
 
 
+
+
 # INPUT
-def get_input_prot():
-    """This function returns the input protein depending on the introduced way to the program."""
+def get_input_prot(string):
+    """This function returns the input protein id depending on the introduced way to the program."""
 
+    if len(string) > 6:
+        prot_id = get_psiblast_prot(string, "uniprotkb")
 
-    protein = "VAYIGSYLRNDRLWICMEFCGGGSLQEIYHATGPLEERQ"
-    return protein
-
-# PSI-BLAST
-def get_psiblast_prot():
-    """This function returns the result of the psi-blast REST API"""
-    # command line
-    cmd_l = "python psiblast.py --email pyflex@protonmail.com --sequence MALLRDVSLQDPRDRFELLQRVGAGTYGDVYKARDTVTSELAAVKIVKLDPGDDISSLQQEITILRECRHPNVVAYIGSYLRNDRLWICMEFCGGGSLQEIYHATGPLEERQIAYVCREALKGLHHLHSQGKIHRDIKGANLLLTLQGDVKLADFGVSGELTASVAKRRSFIGTPYWALMLMSKSSFQPPKLRDKTRWTQNFHHFLKLALTKNPKKRPTAEKLLQHPFTTQQLPRALLTQLLDKASDPHLGTPSPEDCELETYDMFPDTIHSRGQHGPAERTPSEIQFHQVKFGAPRRKETDPLNEP --database uniprotkb"
-    p = subprocess.Popen(cmd_l, stdout=subprocess.PIPE)
-    for line in p.e:
-        print(line)
-    p.wait()
-    print(p.returncode)
-
-
+    elif len(string) == 6:
+        prot_id = mapping_to_pdb(string)
     
+    elif len(string) == 4:
+        prot_id = string
 
-#seq = get_input_prot()
-psi_blast_result = get_psiblast_prot()
+    elif len(string) < 6:
+        print("This is not a valid Uniprot ID or a FASTA sequence.")
+        
+    return prot_id
+
 
 
 
