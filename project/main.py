@@ -3,6 +3,7 @@ import argparse
 from pyflex import downloader, protein_treatment, GNMBuild, outputfun
 import warnings
 from Bio import BiopythonWarning
+import shutil
 
 
 def parserfunc():
@@ -35,17 +36,16 @@ def parserfunc():
 
 
 def main():
-    #os.mkdir("temp")
+    os.mkdir("temp")
     warnings.simplefilter('ignore', BiopythonWarning)
     arg = parserfunc()
     path = os.path.dirname(os.path.abspath(__file__))
     if os.path.isfile(arg.infile):
         id, seq = downloader.FASTA_iterator(arg.infile)
-        # job_id = downloader.get_psiblast_prot(seq, "uniprotkb_swissprot", path)
-        # print(job_id)
-        #
-        # job = downloader.decode_job_id(job_id)
-        job = "psiblast-R20220404-143845-0932-33667906-p2m"
+        job_id = downloader.get_psiblast_prot(seq, "uniprotkb_swissprot", path)
+        print(job_id)
+        job = downloader.decode_job_id(job_id)
+        #job = "psiblast-R20220404-143845-0932-33667906-p2m"
         print(job)
         best_candidate = protein_treatment.best_target_candidate(
             f"{path}/temp/{job}.preselected_ids.txt")
@@ -54,9 +54,9 @@ def main():
         id = downloader.alphafold_downloader(best_candidate, path)
         print(id)
         scores = GNMBuild.obtain_MSFs(f"{path}/temp/{id}.pdb")
-        # job_id_pdb = downloader.get_psiblast_prot(seq, "pdb", path)
-        # job_pdb = downloader.decode_job_id(job_id_pdb)
-        job_pdb = "psiblast-R20220404-150732-0697-3296736-p2m"
+        job_id_pdb = downloader.get_psiblast_prot(seq, "pdb", path)
+        job_pdb = downloader.decode_job_id(job_id_pdb)
+        #job_pdb = "psiblast-R20220404-150732-0697-3296736-p2m"
         files = protein_treatment.list_of_pdbfiles_preprocessor(
             f"{path}/temp/{job_pdb}.ids.txt")
         print(files)
@@ -100,7 +100,7 @@ def main():
         scores = GNMBuild.obtain_MSFs(f"{path}/temp/{id}.pdb")
 
         job_id_pdb = downloader.get_psiblast_prot(arg.infile, "pdb", path)
-    #os.rmdir("temp")
+    shutil.rmtree('temp')
 
 
 if __name__ == '__main__':
