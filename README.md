@@ -10,7 +10,7 @@ protein systems in a simpler and faster way than with MD and with good quality r
 
 # OVERVIEW
 
-Please download the latest version of our program: *"PyFlex-0.4.tar.gz"*.
+Please download the latest version of our program: **"PyFlex-0.4.tar.gz"**.
 
 You can find the methods implemented and the installation tutorial in the attached report "PyFlex_Protein_Flexibility_Report.pdf".
 
